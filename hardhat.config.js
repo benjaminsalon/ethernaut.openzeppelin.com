@@ -58,7 +58,9 @@ module.exports = {
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
       accounts:
-      [PRIVATE_KEY_1,PRIVATE_KEY_2,PRIVATE_KEY_3]
+      [PRIVATE_KEY_1,PRIVATE_KEY_2,PRIVATE_KEY_3],
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
   },
   gasReporter: {
@@ -66,6 +68,7 @@ module.exports = {
     currency: "USD",
   },
   etherscan: {
+    url:"https://rinkeby.etherscan.io",
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
 };
