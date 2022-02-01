@@ -3,8 +3,8 @@ const hre = require("hardhat");
 async function main() {
     
     //Params
-    levelAddress = "0xBB27Fc38DB9476c2EdaeEC80d1fb34c060999E01";
-    contractName = "GatekeeperOne";
+    levelAddress = "0xCa1d7F88C2e705D3f9308cF89F878EA075Ef673c";
+    contractName = "Shop";
 
     const account = await hre.ethers.getSigner();
     console.log(`Working with account ${account.address}`);
@@ -12,19 +12,23 @@ async function main() {
     // const level = await Level.attach(levelAddress);
     const level = await Level.deploy();
     console.log(`Level at address ${level.address}`);
-
-    let result = await level.entrant();
-    console.log(result);
     const Attacker = await hre.ethers.getContractFactory(`Attacker${contractName}`);
     const attacker = await Attacker.deploy(level.address);
-    // const attacker = await Attacker.attach("0xC983740AAfDccD7b727E1dcb982932536A45ad27");
     console.log(`Attacker at ${attacker.address}`);
 
-    let tx = await attacker.attack(819365); //Operations until gateTwo takes 819365-819117=248
-    let tr = await tx.wait();
+    
+    tx = await attacker.attack();
+    tr = await tx.wait();
+    price = await level.price();
+    console.log(price);
+    //the instructions 
+    // if (_buyer.price() >= price && !isSold) {
+    //  isSold = true;
+    // takes about 1075033 - (1077893 - 1075033) - 1049474 = 22699
+    
 
-    result = await level.entrant();
-    console.log(result);
+    
+    
 }
 
 // We recommend this pattern to be able to use async/await everywhere

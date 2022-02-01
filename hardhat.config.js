@@ -36,6 +36,12 @@ module.exports = {
       },
       {
         version: "0.6.0",
+      },
+      {
+        version: "0.6.2"
+      },
+      {
+        version: "0.5.0"
       }
     ]
   },
@@ -55,6 +61,9 @@ module.exports = {
   },
   defaultNetwork: "rinkeby",
   networks: {
+    hardhat:{
+      gas:2100000
+    },
     rinkeby: {
       url: process.env.RINKEBY_URL || "",
       accounts:

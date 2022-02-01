@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
-import '@openzeppelin/contracts/utils/math/SafeMath.sol';
+/*
+import '@openzeppelin/contracts/math/SafeMath.sol';
 
 interface ICoinFlip {
 
@@ -28,4 +28,4 @@ contract AttackerCoinFlip{
 
         require(victim.flip(side),"Didn't win");
     }
-}
+}*/

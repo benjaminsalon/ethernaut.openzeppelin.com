@@ -12,7 +12,7 @@ contract AttackerGatekeeperOne{
 
     IGateKeeperOne victim;
     // gateKey determined with analysis of the gate3
-    bytes8 gateKey = 0x1000000000002266;
+    bytes8 gateKey = 0x100000000000FC7C;
 
     constructor(address _victim) {
         victim = IGateKeeperOne(_victim);
