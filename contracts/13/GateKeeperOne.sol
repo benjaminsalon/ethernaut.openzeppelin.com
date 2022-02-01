@@ -2,12 +2,13 @@
 pragma solidity ^0.6.0;
 
 import '../old_libraries/SafeMath.sol';
-import 'hardhat/console.sol';
+// import 'hardhat/console.sol';
 
 contract GatekeeperOne {
 
   using SafeMath for uint256;
   address public entrant;
+  // uint public gas;
 
   modifier gateOne() {
     require(msg.sender != tx.origin);
@@ -15,8 +16,8 @@ contract GatekeeperOne {
   }
 
   modifier gateTwo() {
-    console.log(gasleft());
-    require(gasleft().mod(8191) != 0);
+    // gas = gasleft();
+    require(gasleft().mod(8191) == 0);
     _;
   }
 
